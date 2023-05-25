@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h3>ytb2rss</h3>
+
+        <form class="form">
+            <input name="url" type="text" placeholder="youtube channel link">
+            <button type="submit">submit</button>
+        </form>
+
+        <p id="rss"></p>
+
+        <script>
+         const formEl = document.querySelector('.form');
+
+         formEl.addEventListener('submit', event => {
+             event.preventDefault();
+
+             const formData = new FormData(formEl);
+             const data = Object.fromEntries(formData);
+             const apiUrl = 'https://apibazaar.zavodx.com/utube2rss/v1/convert';
+
+             fetch(apiUrl, {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify(data)
+             }).then((response) => {
+                 return response.json();
+             }).then(data => {
+                 console.log('zaaa');
+                 document.getElementById("rss").innerHTML = data['payload'];
+             }).catch((err) => {
+                 console.log('rejected', err);
+             });
+         });
+        </script>
+    </body>
+</html>
