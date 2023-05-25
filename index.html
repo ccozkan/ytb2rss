@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>convert youtube channel links to rss </title>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
     <body>
         <h3>ytb2rss</h3>
+        <p style="color: blue;">converts youtube channel links to rss</p>
 
         <form class="form">
             <input name="url" type="text" placeholder="youtube channel link">
+            <br/>
             <button type="submit">submit</button>
         </form>
 
-        <p id="rss"></p>
+        <p id="rss" style="display: none; color: yellow;"></p>
 
         <script>
          const formEl = document.querySelector('.form');
@@ -19,6 +26,7 @@
              const formData = new FormData(formEl);
              const data = Object.fromEntries(formData);
              const apiUrl = 'https://apibazaar.zavodx.com/utube2rss/v1/convert';
+             /* const apiUrl = 'http://localhost:3000/utube2rss/v1/convert'; */
 
              fetch(apiUrl, {
                  method: 'POST',
@@ -31,6 +39,7 @@
              }).then(data => {
                  console.log('zaaa');
                  document.getElementById("rss").innerHTML = data['payload'];
+                 document.getElementById("rss").style.display = "block";
              }).catch((err) => {
                  console.log('rejected', err);
              });
